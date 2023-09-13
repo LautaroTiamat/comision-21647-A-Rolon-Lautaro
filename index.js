@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const helmet = require('helmet');
+const morgan = require('morgan');
 
 const { DBTest } = require('./database.js');
 const tareaModel = require('./tareaModel.js');
@@ -13,7 +14,8 @@ const PUERTO = process.env.PUERTO
 app.set('view engine', 'ejs');
 
 // Middlewares
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
